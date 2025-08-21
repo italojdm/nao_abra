@@ -2,124 +2,122 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vai dormir comigo amanhã ?</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #ffe6f2;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vai dormir comigo amanhã ?</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #ffe6f2;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
 
-        h1 {
-            color: #d63384;
-            margin: 20px;
-            font-size: 1.8rem;
-        }
+    h1 {
+      color: #d63384;
+      margin: 20px;
+      font-size: 1.8rem;
+    }
 
-        .buttons {
-            margin-top: 20px;
-        }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
 
-        button {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 20px;
-            cursor: pointer;
-            margin: 10px;
-        }
+    button {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
 
-        #sim {
-            background-color: #ff4da6;
-            color: white;
-            position: relative;
-            z-index: 2;
-        }
+    #sim {
+      background-color: #ff4da6;
+      color: white;
+    }
 
-        #nao {
-            background-color: #6c757d;
-            color: white;
-            position: fixed;
-            /* agora se move pela tela inteira */
-            left: 50%;
-            top: 60%;
-            transform: translateX(-50%);
-        }
+    #nao {
+      background-color: #6c757d;
+      color: white;
+      position: relative; /* começa normal, lado a lado */
+    }
 
-        #gif {
-            margin-top: 20px;
-            display: none;
-        }
+    #gif {
+      margin-top: 20px;
+      display: none;
+    }
 
-        #gif img {
-            max-width: 90%;
-            height: auto;
-        }
+    #gif img {
+      max-width: 90%;
+      height: auto;
+    }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.4rem;
-            }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.4rem;
+      }
 
-            button {
-                font-size: 18px;
-                padding: 12px 25px;
-            }
-        }
-    </style>
+      button {
+        font-size: 18px;
+        padding: 12px 25px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <h1>Vai dormir comigo amanhã ?</h1>
+  <h1>Vai dormir comigo amanhã ?</h1>
 
-    <div class="buttons">
-        <button id="sim">Sim</button>
-        <button id="nao">Não</button>
-    </div>
+  <div class="buttons">
+    <button id="sim">Sim</button>
+    <button id="nao">Não</button>
+  </div>
 
-    <div id="gif">
-        <img src="https://media.tenor.com/xwKvSU1YrKIAAAAM/smile.gif" alt="Feliz">
-        <br>
-        <audio id="musica"
-            src="https://ia903100.us.archive.org/13/items/carelesswhisper_201911/Careless%20Whisper.mp3"></audio>
-    </div>
+  <div id="gif">
+    <img src="https://media.tenor.com/xwKvSU1YrKIAAAAM/smile.gif" alt="Feliz">
+    <br>
+    <audio id="musica"
+      src="https://ia903100.us.archive.org/13/items/carelesswhisper_201911/Careless%20Whisper.mp3"></audio>
+  </div>
 
-    <script>
-        const sim = document.getElementById("sim");
-        const nao = document.getElementById("nao");
-        const gif = document.getElementById("gif");
-        const musica = document.getElementById("musica");
+  <script>
+    const sim = document.getElementById("sim");
+    const nao = document.getElementById("nao");
+    const gif = document.getElementById("gif");
+    const musica = document.getElementById("musica");
 
-        // Clique no SIM
-        sim.addEventListener("click", () => {
-            gif.style.display = "block";
-            musica.play();
-        });
+    // Clique no SIM
+    sim.addEventListener("click", () => {
+      gif.style.display = "block";
+      musica.play();
+    });
 
-        // Fugir no mouse (PC)
-        nao.addEventListener("mouseenter", moverBotao);
-        // Fugir no toque (celular)
-        nao.addEventListener("touchstart", moverBotao);
+    // Fugir no mouse (PC)
+    nao.addEventListener("mouseenter", moverBotao);
+    // Fugir no toque (celular)
+    nao.addEventListener("touchstart", moverBotao);
 
-        function moverBotao() {
-            const maxX = window.innerWidth - nao.offsetWidth - 20;
-            const maxY = window.innerHeight - nao.offsetHeight - 20;
-            const x = Math.floor(Math.random() * maxX);
-            const y = Math.floor(Math.random() * maxY);
-            nao.style.left = `${x}px`;
-            nao.style.top = `${y}px`;
-        }
-    </script>
+    function moverBotao() {
+      // quando começar a fugir, muda para fixed
+      nao.style.position = "fixed";
+
+      const maxX = window.innerWidth - nao.offsetWidth - 20;
+      const maxY = window.innerHeight - nao.offsetHeight - 20;
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+
+      nao.style.left = `${x}px`;
+      nao.style.top = `${y}px`;
+    }
+  </script>
 </body>
-
 
 </html>
